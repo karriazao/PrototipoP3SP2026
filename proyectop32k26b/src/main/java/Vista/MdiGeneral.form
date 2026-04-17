@@ -55,44 +55,17 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnuCatalogos">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Catalogos"/>
+            <Property name="text" type="java.lang.String" value="Examen"/>
           </Properties>
           <SubComponents>
-            <Menu class="javax.swing.JMenu" name="mnuCatalogosMantenimientos">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Mantenimientos"/>
+                <Property name="text" type="java.lang.String" value="MantenimientoUsuarios"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuCatalogosMantenimientosActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem3ActionPerformed"/>
               </Events>
-              <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="mantenimientoUsuarios">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Mantenimiento Usuarios"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mantenimientoUsuariosActionPerformed"/>
-                  </Events>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="frmMantenimientoPerfiles">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Mantenimiento Perfiles"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="frmMantenimientoPerfilesAncestorAdded"/>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="frmMantenimientoPerfilesActionPerformed"/>
-                  </Events>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="frmMantenimientoAplicaciones">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Mantenimiento Aplicaciones"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="frmMantenimientoAplicacionesActionPerformed"/>
-                  </Events>
-                </MenuItem>
-              </SubComponents>
-            </Menu>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnuProcesos">

@@ -6,11 +6,8 @@
 package Vista;
 
 
-import Controlador.clsBitacora;
-import Modelo.BitacoraDAO;
-import Controlador.clsSeguridad;
-import Controlador.clsUsuario;
-import Controlador.clsUsuarioConectado;
+import Controlador.clsExamen;
+import Modelo.ExamenDAO;
 
 import java.awt.HeadlessException;
 import java.util.HashSet;
@@ -160,111 +157,48 @@ public class frmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        // TODO add your handling code here:
+if (txtUsuario.getText().trim().isEmpty() || txtContraseña.getText().trim().isEmpty()) {
+    JOptionPane.showMessageDialog(this, "NO PUEDEN HABER CAMPOS VACIOS", "ERROR", JOptionPane.ERROR_MESSAGE);
+} else {
+    try {
+        clsUsuario usuario = new clsUsuario();
+        clsSeguridad c = new clsSeguridad();
 
-        if (txtUsuario.getText().trim().isEmpty() || txtContraseña.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "NO PUEDEN HABER CAMPOS VACIOS", "ERROR", JOptionPane.                  ERROR_MESSAGE);
+        usuario.setUsuNombre(txtUsuario.getText().trim());
+        usuario.setUsuContrasena(c.encode(txtContraseña.getText()));
+
+        usuario = usuario.getBuscarInformacionUsuarioPorNombre(usuario);
+
+        if (usuario != null &&
+            usuario.getUsuNombre() != null &&
+            usuario.getUsuContrasena().equals(c.encode(txtContraseña.getText()))) {
+
+            JOptionPane.showMessageDialog(this, "Bienvenido al sistema");
+
+            // 🔹 Registrar usuario conectado (opcional)
+            clsUsuarioConectado conectado = new clsUsuarioConectado();
+            conectado.setUsuId(usuario.getUsuId());
+            conectado.setUsuNombre(usuario.getUsuNombre());
+
+            // 🔹 Bitácora (opcional)
+            BitacoraDAO bitacora = new BitacoraDAO();
+            bitacora.insert(usuario.getUsuId(), 10, "LOGIN");
+
+            // 🔹 Abrir MDI
+            MdiGeneral menu = new MdiGeneral();
+            menu.setVisible(true);
+            this.dispose();
+
         } else {
-            try {
-                clsUsuario usuario = new clsUsuario();
-          
-                usuario.setUsuNombre(txtUsuario.getText().trim());
-                // Recuperación de información a través de otro objeto
-                // se agrego codificacion de seguridad = David Rojas
-                clsSeguridad c = new clsSeguridad();
-                usuario.setUsuContrasena(c.encode(txtContraseña.getText()));
-                
-                usuario = usuario.getBuscarInformacionUsuarioPorNombre(usuario);
-                if (c.encode(txtContraseña.getText()).equals(usuario.getUsuContrasena()) && 
-                    txtUsuario.getText().equals(usuario.getUsuNombre())) {
-                    JOptionPane.showMessageDialog(null, "Bienvenido al SISTEMA\n", 
-                    "Mensaje de bienvenida", JOptionPane.INFORMATION_MESSAGE);
-                    // registrando usuario conectado
-                    clsUsuarioConectado usuarioRegistrado = new clsUsuarioConectado();
-                    usuarioRegistrado.setUsuId(usuario.getUsuId());
-                    usuarioRegistrado.setUsuNombre(usuario.getUsuNombre());
-                    // Registro de Bitacora
-                    int resultadoBitacora=0;
-
-                    BitacoraDAO bitacoradao = new BitacoraDAO();
-                    resultadoBitacora = bitacoradao.insert(usuario.getUsuId(), codigoAplicacion, "Inicio Sesiòn");
-                    
-                    String areaSeleccionada;
-                    areaSeleccionada = cboOpciones.getSelectedItem().toString();
-                    
-                    switch (areaSeleccionada) {
-
-                        case "Bancos":
-                        try {
-                            MdiSeguridad menu = new MdiSeguridad();
-                            menu.setVisible(true);
-                            this.dispose();
-                        } catch (Exception e) {
-                            System.out.println(e);
-                        }                               
-                     
-                        break;
-                        case "Compras":
-                        try {
-                            MdiSeguridad menu = new MdiSeguridad();
-                            menu.setVisible(true);
-                            this.dispose();
-                        } catch (Exception e) {
-                            System.out.println(e);
-                        }   
-                        break;
-                        case "Cuentas Corrientes":
-                        try {
-                            MdiSeguridad menu = new MdiSeguridad();
-                            menu.setVisible(true);
-                            this.dispose();
-                        } catch (Exception e) {
-                            System.out.println(e);
-                        }   
-                        break;
-                        case "Inventarios":
-                        try {
-                            MdiSeguridad menu = new MdiSeguridad();
-                            menu.setVisible(true);
-                            this.dispose();
-                        } catch (Exception e) {
-                            System.out.println(e);
-                        }   
-                        break;
-                        case "Seguridad":
-                        try {
-                            MdiSeguridad menu = new MdiSeguridad();
-                            menu.setVisible(true);
-                            this.dispose();
-                        } catch (Exception e) {
-                            System.out.println(e);
-                        }   
-                        break;
-                        case "Ventas":
-                        try {
-                            MdiSeguridad menu = new MdiSeguridad();
-                            menu.setVisible(true);
-                            this.dispose();
-                        } catch (Exception e) {
-                            System.out.println(e);
-                        }   
-                        break;
-                        default:
-                            break;
-                    }
-
-                } else {
-                    JOptionPane.showMessageDialog(this, "ERROR AL ENCONTRAR USUARIO o CONTRASEÑA",                              "ERROR", JOptionPane.ERROR_MESSAGE);
-                    txtContraseña.setText("");
-                    txtUsuario.setText("");
-                }
-            } catch (HeadlessException e) {
-                JOptionPane.showMessageDialog(this, "ERROR AL ENCONTRAR USUARIO o CONTRASEÑA", "ERROR",                     JOptionPane.ERROR_MESSAGE);
-                txtContraseña.setText("");
-                txtUsuario.setText("");
-            }
+            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "ERROR", JOptionPane.ERROR_MESSAGE);
+            txtUsuario.setText("");
+            txtContraseña.setText("");
         }
 
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error en login", "ERROR", JOptionPane.ERROR_MESSAGE);
+    }
+}
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

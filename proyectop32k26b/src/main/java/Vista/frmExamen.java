@@ -1,16 +1,7 @@
-// Marco Hernandez
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Vista;
 
-import Controlador.clsSeguridad;
-import Controlador.clsBitacora;
-import Controlador.clsUsuario;
-import Controlador.clsUsuarioConectado;
-import Modelo.BitacoraDAO;
+import Controlador.clsExamen;
+import Modelo.ExamenDAO;
 import Modelo.Conexion;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -27,7 +18,7 @@ import javax.swing.JOptionPane;
  *
  * @author visitante
  */
-public class frmMantenimientoUsuario extends javax.swing.JInternalFrame {
+public class frmExamen extends javax.swing.JInternalFrame {
     
 int codigoAplicacion=10;
 
@@ -41,38 +32,29 @@ int codigoAplicacion=10;
     }
 
     public void llenadoDeTablas() {
-        DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("ID");
-        modelo.addColumn("Nombre Usuario");
-        modelo.addColumn("Contraseña");
-        modelo.addColumn("Última sesión");
-        modelo.addColumn("Estatus");
-        modelo.addColumn("Nombre Real");
-        modelo.addColumn("Correo");
-        modelo.addColumn("Teléfono");
-        modelo.addColumn("Dirección");
-        modelo.addColumn("Tipo Usuario");
-        clsUsuario usuario = new clsUsuario();
-        //VendedorDAO vendedorDAO = new VendedorDAO();
-        List<clsUsuario> listaUsuarios = usuario.getListadoUsuarios();
-        tablaUsuarios.setModel(modelo);
-        String[] dato = new String[9];
-        for (int i = 0; i < listaUsuarios.size(); i++) {
-            dato[0] = Integer.toString(listaUsuarios.get(i).getUsuId());
-            dato[1] = listaUsuarios.get(i).getUsuNombre();
-            dato[2] = listaUsuarios.get(i).getUsuContrasena();
-            dato[3] = listaUsuarios.get(i).getUsuUltimaSesion();
-            dato[4] = listaUsuarios.get(i).getUsuEstatus();
-            dato[5] = listaUsuarios.get(i).getUsuNombreReal();
-            dato[6] = listaUsuarios.get(i).getUsuCorreo();
-            dato[7] = listaUsuarios.get(i).getUsuTelefono();
-            dato[8] = listaUsuarios.get(i).getUsuDireccion();
-            
-            modelo.addRow(dato);
-        }       
+       DefaultTableModel modelo = new DefaultTableModel();
+    
+    modelo.addColumn("ID");
+    modelo.addColumn("Nombre");
+    modelo.addColumn("Descripción");
+
+    clsExamen examen = new clsExamen();
+    List<clsExamen> lista = examen.listar();
+
+    tablaUsuarios.setModel(modelo);
+
+    Object[] dato = new Object[3];
+
+    for (int i = 0; i < lista.size(); i++) {
+        dato[0] = lista.get(i).getId();
+        dato[1] = lista.get(i).getNombre();
+        dato[2] = lista.get(i).getDescripcion();
+
+        modelo.addRow(dato);
+    }
     }
 
-    public frmMantenimientoUsuario() {
+    public frmExamen() {
         initComponents();
         llenadoDeTablas();
         llenadoDeCombos();
