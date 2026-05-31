@@ -62,5 +62,6 @@
             <artifactId>groovy</artifactId>
             <version>3.0.21</version>
         </dependency>
-    </dependencies>  
+    </dependencies>
+    <name>Ensayoef</name>
 </project>

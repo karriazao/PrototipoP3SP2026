@@ -6,8 +6,6 @@
 package Vista;
 
 
-import Controlador.clsUsuarioConectado;
-import Modelo.PermisosDAO;
 import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -71,6 +69,7 @@ public class MdiSeguridad extends javax.swing.JFrame {
         mantenimientoUsuarios = new javax.swing.JMenuItem();
         frmMantenimientoPerfiles = new javax.swing.JMenuItem();
         frmMantenimientoAplicaciones = new javax.swing.JMenuItem();
+        Libreria = new javax.swing.JMenuItem();
         mnuProcesos = new javax.swing.JMenu();
         frmProcesoPerfilUsuario = new javax.swing.JMenuItem();
         frmProcesoAplicacionPerfil = new javax.swing.JMenuItem();
@@ -163,6 +162,14 @@ public class MdiSeguridad extends javax.swing.JFrame {
             }
         });
         mnuCatalogosMantenimientos.add(frmMantenimientoAplicaciones);
+
+        Libreria.setText("Libreria");
+        Libreria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LibreriaActionPerformed(evt);
+            }
+        });
+        mnuCatalogosMantenimientos.add(Libreria);
 
         mnuCatalogos.add(mnuCatalogosMantenimientos);
 
@@ -417,6 +424,16 @@ public void configurarVisibilidadBotones(List<Integer> appsPermitidas) {
         ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
     }//GEN-LAST:event_frmProcesoAplicacionUsuarioActionPerformed
 
+    private void LibreriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LibreriaActionPerformed
+        // TODO add your handling code here:
+        System.out.println("entre a proceso Libreria");
+        frmLibreria ventana = new frmLibreria();
+        jDesktopPane1.add(ventana);
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension FrameSize = ventana.getSize();
+        ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+    }//GEN-LAST:event_LibreriaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -460,6 +477,7 @@ public void configurarVisibilidadBotones(List<Integer> appsPermitidas) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem Libreria;
     private javax.swing.JMenuItem frmMantenimientoAplicaciones;
     private javax.swing.JMenuItem frmMantenimientoBitacora;
     private javax.swing.JMenuItem frmMantenimientoPerfiles;
