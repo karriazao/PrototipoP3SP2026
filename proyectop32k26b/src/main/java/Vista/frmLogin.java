@@ -6,8 +6,19 @@
 package Vista;
 
 
-import Controlador.clsExamen;
-import Modelo.ExamenDAO;
+import Controlador.clsBitacora;
+import Modelo.BitacoraDAO;
+import Controlador.clsSeguridad;
+import Controlador.clsUsuario;
+import Controlador.clsUsuarioConectado;
+import Vista.ComisionesVentas.frmComisionesVentas;
+
+import Vista.vistaCuentasCorrientes.MdiGeneralCC;
+
+import Vista.Bancos.MdiBancos;
+import Vista.Logistica.MdiLogistica;
+
+import Vista.vistaPlanilla.MdiPlanillas;
 
 import java.awt.HeadlessException;
 import java.util.HashSet;
@@ -50,6 +61,7 @@ public class frmLogin extends javax.swing.JFrame {
         txtContraseña = new javax.swing.JPasswordField();
         jLabel4 = new javax.swing.JLabel();
         cboOpciones = new javax.swing.JComboBox<>();
+        ccontraseña = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,10 +95,17 @@ public class frmLogin extends javax.swing.JFrame {
 
         jLabel4.setText("Departamento");
 
-        cboOpciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bancos", "Compras", "Cuentas Corrientes", "Inventarios", "Seguridad", "Ventas" }));
+        cboOpciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bancos", "Compras", "Cuentas Corrientes", "Inventarios", "Seguridad", "Ventas", "Comisiones de ventas", "Planillas", "Logistica", " " }));
         cboOpciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboOpcionesActionPerformed(evt);
+            }
+        });
+
+        ccontraseña.setText("Cambiar Contraseña");
+        ccontraseña.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ccontraseñaActionPerformed(evt);
             }
         });
 
@@ -99,31 +118,30 @@ public class frmLogin extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addComponent(jLabel1))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(28, 28, 28)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel3)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
-                                    .addGap(18, 18, 18))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addContainerGap()
-                                    .addComponent(jLabel4)
-                                    .addGap(2, 2, 2)))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(btnAceptar)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButton2))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(27, 27, 27)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(cboOpciones, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addContainerGap(65, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel4)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jLabel3)
+                                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)))
+                                        .addGap(66, 66, 66))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(ccontraseña)
+                                        .addGap(18, 18, 18)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cboOpciones, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(btnAceptar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton2)))))))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,14 +157,15 @@ public class frmLogin extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(cboOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cboOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAceptar)
-                    .addComponent(jButton2))
-                .addContainerGap())
+                    .addComponent(jButton2)
+                    .addComponent(ccontraseña))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -157,48 +176,147 @@ public class frmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-if (txtUsuario.getText().trim().isEmpty() || txtContraseña.getText().trim().isEmpty()) {
-    JOptionPane.showMessageDialog(this, "NO PUEDEN HABER CAMPOS VACIOS", "ERROR", JOptionPane.ERROR_MESSAGE);
-} else {
-    try {
-        clsUsuario usuario = new clsUsuario();
-        clsSeguridad c = new clsSeguridad();
+        // TODO add your handling code here:
 
-        usuario.setUsuNombre(txtUsuario.getText().trim());
-        usuario.setUsuContrasena(c.encode(txtContraseña.getText()));
-
-        usuario = usuario.getBuscarInformacionUsuarioPorNombre(usuario);
-
-        if (usuario != null &&
-            usuario.getUsuNombre() != null &&
-            usuario.getUsuContrasena().equals(c.encode(txtContraseña.getText()))) {
-
-            JOptionPane.showMessageDialog(this, "Bienvenido al sistema");
-
-            // 🔹 Registrar usuario conectado (opcional)
-            clsUsuarioConectado conectado = new clsUsuarioConectado();
-            conectado.setUsuId(usuario.getUsuId());
-            conectado.setUsuNombre(usuario.getUsuNombre());
-
-            // 🔹 Bitácora (opcional)
-            BitacoraDAO bitacora = new BitacoraDAO();
-            bitacora.insert(usuario.getUsuId(), 10, "LOGIN");
-
-            // 🔹 Abrir MDI
-            MdiGeneral menu = new MdiGeneral();
-            menu.setVisible(true);
-            this.dispose();
-
+        if (txtUsuario.getText().trim().isEmpty() || txtContraseña.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "NO PUEDEN HABER CAMPOS VACIOS", "ERROR", JOptionPane.                  ERROR_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "ERROR", JOptionPane.ERROR_MESSAGE);
-            txtUsuario.setText("");
-            txtContraseña.setText("");
+            try {
+                clsUsuario usuario = new clsUsuario();
+          
+                usuario.setUsuNombre(txtUsuario.getText().trim());
+                // Recuperación de información a través de otro objeto
+                // se agrego codificacion de seguridad = David Rojas
+                clsSeguridad c = new clsSeguridad();
+                usuario.setUsuContrasena(c.encode(txtContraseña.getText()));
+                
+                usuario = usuario.getBuscarInformacionUsuarioPorNombre(usuario);
+                if (c.encode(txtContraseña.getText()).equals(usuario.getUsuContrasena()) && 
+                    txtUsuario.getText().equals(usuario.getUsuNombre())) {
+                    JOptionPane.showMessageDialog(null, "Bienvenido al SISTEMA\n", 
+                    "Mensaje de bienvenida", JOptionPane.INFORMATION_MESSAGE);
+                    // registrando usuario conectado
+                    clsUsuarioConectado usuarioRegistrado = new clsUsuarioConectado();
+                    usuarioRegistrado.setUsuId(usuario.getUsuId());
+                    usuarioRegistrado.setUsuNombre(usuario.getUsuNombre());
+                    // Registro de Bitacora
+                    int resultadoBitacora=0;
+
+                    BitacoraDAO bitacoradao = new BitacoraDAO();
+                    resultadoBitacora = bitacoradao.insert(usuario.getUsuId(), codigoAplicacion, "Inicio Sesiòn");
+                    
+                    String areaSeleccionada;
+                    areaSeleccionada = cboOpciones.getSelectedItem().toString();
+                    
+                    switch (areaSeleccionada) {
+
+
+        case "Bancos":
+    try {
+        MdiBancos menu = new MdiBancos();
+        menu.setVisible(true);
+        this.dispose();
+    } catch (Exception e) {
+        System.out.println(e);
+    }
+    break;
+
+case "Compras":
+    try {
+        JOptionPane.showMessageDialog(null, 
+            "Módulo de Compras aún no disponible", 
+            "Información", 
+            JOptionPane.INFORMATION_MESSAGE);
+    } catch (Exception e) {
+        System.out.println(e);
+    }
+    break;
+
+case "Cuentas Corrientes":
+    try {
+        MdiGeneralCC menu = new MdiGeneralCC();
+        menu.setVisible(true);
+        this.dispose();
+    } catch (Exception e) {
+        System.out.println(e);
+    }
+    break;
+
+case "Inventarios":
+    try {
+        JOptionPane.showMessageDialog(null, 
+            "Módulo de Inventarios aún no disponible", 
+            "Información", 
+            JOptionPane.INFORMATION_MESSAGE);
+    } catch (Exception e) {
+        System.out.println(e);
+    }
+    break;
+
+case "Seguridad":
+    try {
+        MdiSeguridad menu = new MdiSeguridad();
+        menu.setVisible(true);
+        this.dispose();
+    } catch (Exception e) {
+        System.out.println(e);
+    }
+    break;
+
+case "Ventas":
+    try {
+        JOptionPane.showMessageDialog(null, 
+            "Módulo de Ventas aún no disponible", 
+            "Información", 
+            JOptionPane.INFORMATION_MESSAGE);
+    } catch (Exception e) {
+        System.out.println(e);
+    }
+    break;
+    
+case "Planillas":
+    try {
+        MdiPlanillas menu = new MdiPlanillas();
+        menu.setVisible(true);
+        this.dispose();
+    } catch (Exception e) {
+        System.out.println(e);
+    }
+    break;
+case "Comisiones de ventas":
+    try {
+         frmComisionesVentas menu = new frmComisionesVentas();
+        menu.setVisible(true);
+        this.dispose();
+    } catch (Exception e) {
+        System.out.println(e);
+    }
+    break;
+    case "Logistica":
+    try {
+         MdiLogistica menu = new MdiLogistica();
+        menu.setVisible(true);
+        this.dispose();
+    } catch (Exception e) {
+        System.out.println(e);
+    }
+    break;
+
+default:
+    break;
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "ERROR AL ENCONTRAR USUARIO o CONTRASEÑA",                              "ERROR", JOptionPane.ERROR_MESSAGE);
+                    txtContraseña.setText("");
+                    txtUsuario.setText("");
+                }
+            } catch (HeadlessException e) {
+                JOptionPane.showMessageDialog(this, "ERROR AL ENCONTRAR USUARIO o CONTRASEÑA", "ERROR",                     JOptionPane.ERROR_MESSAGE);
+                txtContraseña.setText("");
+                txtUsuario.setText("");
+            }
         }
 
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Error en login", "ERROR", JOptionPane.ERROR_MESSAGE);
-    }
-}
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -209,6 +327,13 @@ if (txtUsuario.getText().trim().isEmpty() || txtContraseña.getText().trim().isE
     private void cboOpcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboOpcionesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cboOpcionesActionPerformed
+
+    private void ccontraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ccontraseñaActionPerformed
+        // TODO add your handling code here:
+        frmRestablecerContraseña cambio = new frmRestablecerContraseña();
+        cambio.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_ccontraseñaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -255,6 +380,7 @@ if (txtUsuario.getText().trim().isEmpty() || txtContraseña.getText().trim().isE
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JComboBox<String> cboOpciones;
+    private javax.swing.JButton ccontraseña;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
