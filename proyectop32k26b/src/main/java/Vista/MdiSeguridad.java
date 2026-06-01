@@ -425,13 +425,7 @@ public void configurarVisibilidadBotones(List<Integer> appsPermitidas) {
     }//GEN-LAST:event_frmProcesoAplicacionUsuarioActionPerformed
 
     private void LibreriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LibreriaActionPerformed
-        // TODO add your handling code here:
-        System.out.println("entre a proceso Libreria");
-        frmLibreria ventana = new frmLibreria();
-        jDesktopPane1.add(ventana);
-        Dimension desktopSize = jDesktopPane1.getSize();
-        Dimension FrameSize = ventana.getSize();
-        ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+        
     }//GEN-LAST:event_LibreriaActionPerformed
 
     /**
